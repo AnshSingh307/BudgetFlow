@@ -1,0 +1,7 @@
+* text=auto eol=lf
+*.jpg binary
+*.png binary
+*.ttf binary
+*.pdf binary
+*.md whitespace=-blank-at-eol
+assets/fonts/LICENSE_DEJAVU.txt whitespace=-blank-at-eol

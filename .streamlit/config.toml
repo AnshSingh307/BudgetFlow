@@ -1,0 +1,41 @@
+[server]
+address = "localhost"
+maxUploadSize = 2
+enableXsrfProtection = true
+
+[browser]
+gatherUsageStats = false
+
+[theme]
+base = "light"
+font = "sans serif"
+baseFontSize = 15
+metricValueFontSize = "1.8rem"
+showSidebarBorder = true
+baseRadius = "large"
+buttonRadius = "full"
+primaryColor = "#178C7A"
+chartCategoricalColors = ["#23B5A2", "#7B8CF6", "#ECAA5B", "#E77A88", "#62AEE5"]
+
+[theme.light]
+backgroundColor = "#F7F9FB"
+secondaryBackgroundColor = "#FFFFFF"
+textColor = "#182C3C"
+borderColor = "#DFE6EC"
+showWidgetBorder = true
+
+[theme.light.sidebar]
+backgroundColor = "#EDF3F4"
+secondaryBackgroundColor = "#FFFFFF"
+
+[theme.dark]
+primaryColor = "#45CCB3"
+backgroundColor = "#0F1722"
+secondaryBackgroundColor = "#182332"
+textColor = "#E2EAF4"
+borderColor = "#2E3A4B"
+showWidgetBorder = true
+
+[theme.dark.sidebar]
+backgroundColor = "#111C2B"
+secondaryBackgroundColor = "#1B2A3B"
