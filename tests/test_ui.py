@@ -4,6 +4,8 @@ from pathlib import Path
 
 import pytest
 from streamlit.testing.v1 import AppTest
+from streamlit.runtime.pages_manager import PagesManager
+from streamlit.util import calc_hash
 
 from database import Database
 
@@ -21,7 +23,7 @@ def page_app(page, path):
     script = f"""
 import streamlit as st
 from database import Database
-from pages import {page}
+from views import {page}
 st.session_state['database'] = Database({str(path)!r})
 {page}.render()
 """
@@ -37,6 +39,26 @@ def test_dashboard_empty_and_demo(app_environment):
     app.run()
     assert not app.exception
     assert app.metric[0].value != "₹0.00"
+
+
+@pytest.mark.parametrize(
+    "route,submit_label",
+    [("income", "Add income"), ("expenses", "Add expense")],
+)
+def test_direct_entry_route_on_fresh_server(
+    route, submit_label, app_environment, monkeypatch
+):
+    # Emulate the first visit to a new server, before navigation is registered.
+    # AppTest has no public initial-URL argument, so set its page-intent hash.
+    monkeypatch.setattr(PagesManager, "uses_pages_directory", None)
+    app = AppTest.from_file(str(ROOT / "app.py"), default_timeout=20)
+    app._page_hash = calc_hash(route)
+    app.run()
+    assert not app.exception
+    assert any(button.label == submit_label for button in app.button)
+    if route == "income":
+        assert app.selectbox(key="income_new_category").value == "Salary"
+        assert app.selectbox(key="income_new_payment").value == "Bank Transfer"
 
 
 @pytest.mark.parametrize(

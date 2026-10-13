@@ -10,7 +10,7 @@
 2. Read `database.py`: the `Database` class initializes five tables and provides functions for saving and retrieving records.
 3. Read `utils/calculations.py`: it calculates income, spending, savings, progress, and summaries without relying on the interface.
 4. Read `app.py`: it configures the application, prepares the database, and creates navigation.
-5. Read `pages/transactions.py`: it reuses one workflow for both income and expenses.
+5. Read `views/transactions.py`: it reuses one workflow for both income and expenses.
 6. Read the budget, savings, and reports pages to see how the same database and calculation functions are reused.
 7. Run the tests, then demonstrate the app with its clearly labeled demo data.
 

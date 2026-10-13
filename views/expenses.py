@@ -1,4 +1,4 @@
-from pages.transactions import render_transactions
+from views.transactions import render_transactions
 
 
 def render():

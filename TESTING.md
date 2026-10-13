@@ -81,8 +81,8 @@ A three-page report generated from the synthetic October 2026 ledger was rendere
 .\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
 .\.venv\Scripts\python.exe -m pytest -q
 .\.venv\Scripts\python.exe -m pip check
-.\.venv\Scripts\python.exe -m ruff check app.py database.py pages utils tests --select E4,E7,E9,F
-.\.venv\Scripts\python.exe -m ruff format app.py database.py pages utils tests --check --line-length 79
+.\.venv\Scripts\python.exe -m ruff check app.py database.py views utils tests --select E4,E7,E9,F
+.\.venv\Scripts\python.exe -m ruff format app.py database.py views utils tests --check --line-length 79
 ```
 
 Normal local Python environments should not need the managed sandbox exception used during this run.
@@ -96,3 +96,11 @@ A credential-pattern scan of 31 application text files found no API-key candidat
 ## Before initial GitHub publication
 
 The complete regression suite was rerun on 12 October 2026 after the personal-entry updates: **60 passed in 9.35s**. The publication excludes the local ledger, credentials, virtual environment, caches, and temporary QA outputs. Screenshots included in the project show labeled synthetic demo data or empty entry forms.
+
+## Startup recovery on 13 October 2026
+
+The local server had stopped, so localhost refused connections. BudgetFlow was restarted and a Windows double-click launcher, `Start BudgetFlow.cmd`, was added. The launcher uses the existing virtual environment and keeps its terminal open while the app is running.
+
+Browser verification also exposed a separate cold-start routing issue: Streamlit's legacy `pages/` discovery could select a module that only defines a render function before `app.py` registered custom navigation. UI modules now live in `views/`, preserving the public URLs while making the app entry point initialize navigation first. Fresh-server direct income/expense routes have regression tests.
+
+The full suite passed after the fix: **62 passed in 63.09s**. Ruff checks passed. The restarted server returned `ok` from its health endpoint, and the direct income URL rendered its entry form in the browser. Verification used temporary databases; the existing local financial ledger was not reset or replaced.

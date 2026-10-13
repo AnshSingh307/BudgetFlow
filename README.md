@@ -45,6 +45,8 @@ python -m venv .venv
 
 Open the local URL printed in the terminal, normally **http://localhost:8501**. Keep that terminal running; press **Ctrl+C** to stop the app. The first visit creates `data/budgetflow.db` automatically. The initial database is empty.
 
+After installing the dependencies, you can also double-click **Start BudgetFlow.cmd** in the project folder. It starts the app and opens your browser. Keep its terminal window open while using BudgetFlow. If localhost says “refused to connect” after a restart or after closing the server, run the launcher again; saved data stays in SQLite.
+
 If you prefer activating the virtual environment:
 
 ```powershell
@@ -86,6 +88,7 @@ All loaded demo entries are marked in transaction tables and CSV exports. Report
 ```text
 BudgetFlow/
 ├── app.py                     # Streamlit entry point and navigation
+├── Start BudgetFlow.cmd        # Double-click Windows launcher
 ├── database.py                # SQLite schema and validated CRUD
 ├── requirements.txt           # Application dependencies
 ├── requirements-dev.txt       # Test dependencies
@@ -106,7 +109,7 @@ BudgetFlow/
 ├── data/
 │   ├── .gitkeep
 │   └── budgetflow.db           # Created automatically; ignored by Git
-├── pages/
+├── views/
 │   ├── __init__.py
 │   ├── dashboard.py
 │   ├── transactions.py        # Shared income/expense workflow
@@ -133,7 +136,7 @@ BudgetFlow/
     └── screenshots/            # Verified application screenshots
 ```
 
-`pages/` collects input and displays results. `database.py` validates and persists changes. `utils/calculations.py` handles finance independently of the interface. Plotly uses decimal values only to draw charts; authoritative amounts and totals remain integers.
+`views/` collects input and displays results. It intentionally avoids Streamlit's reserved `pages/` directory so direct URLs use the custom navigation on a fresh server. `database.py` validates and persists changes. `utils/calculations.py` handles finance independently of the interface. Plotly uses decimal values only to draw charts; authoritative amounts and totals remain integers.
 
 ```mermaid
 flowchart LR
